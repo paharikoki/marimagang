@@ -1,0 +1,48 @@
+body {
+    text-align: center;
+    padding: 40px 0;
+    background: #EBF0F5;
+}
+
+i {
+    color: #9ABC66;
+    font-size: 100px;
+    line-height: 200px;
+    margin-left: -15px;
+}
+
+.card {
+    background: white;
+    padding: 60px;
+    border-radius: 4px;
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.close-btn {
+    position: absolute;
+    top: 0px;
+    right: 15px;
+    font-size: 24px;
+    color: #DC143C;
+    cursor: pointer;
+    background: white;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+.hoverable-div {
+    border-radius: 200px;
+    height: 200px;
+    width: 200px;
+    background: #F8FAF5;
+    margin: 0 auto;
+    transition: background-color 0.3s;
+    /* Menambahkan efek transisi saat perubahan warna latar belakang */
+}
+
+.close-btn:hover {
+    background: #DC143C;
+    color: white;
+    /* Ganti warna latar belakang saat dihover */
+}

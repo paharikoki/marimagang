@@ -1,0 +1,59 @@
+.image-container {
+    border: 2px solid #fff;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.image {
+    width: 100%;
+    height: auto;
+}
+
+.description {
+    text-align: left;
+    margin: 0 auto;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+.points {
+    text-align: left;
+    margin: 0 50px;
+    max-width: 100%;
+}
+
+.point {
+    margin-bottom: 10px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.point:before {
+    content: "\2022";
+    position: absolute;
+    left: 0;
+    color: #007bff;
+}
+
+.bordered-container {
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    padding: 20px;
+    margin-bottom: 20px;
+    margin-top: 150px;
+    background-color: #fff;
+}
+
+hr {
+    border: none;
+    height: 3px;
+    background-color: #ddd;
+    margin: 20px 0;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 0px;
+    border-top: 1px solid rgba(250, 250, 250, 0.15);
+    padding: 50px 0px;
+}
