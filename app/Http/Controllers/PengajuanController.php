@@ -21,48 +21,56 @@ class PengajuanController extends Controller
 {
     public function store(Request $request)
     {
-        Log::info('Request Data :', $request->all());
-        if ($request->hasFile('bukti')) {
-            Log::info('File found:', $request->file('bukti')->getClientOriginalName());
-        }else{
-            Log::info('No file uploaded');
-        }
-        dd($request->all());
         try {
             $request->validate([
                 'start_date' => 'required|date|after_or_equal:' . now()->format('Y-m-d'),
                 'end_date' => 'required|date|after:start_date',
                 'databidang_id' => 'required|exists:databidang,id',
                 'skill' => 'required|array',
-                'bukti' => 'required|mimes:pdf|max:2048',
+                'bukti' => 'required',
                 'deskripsi',
-                'pengantar' => 'required|mimes:pdf|max:2048',
-                'proposal' => 'required|mimes:pdf|max:2048',
-                'cv' => 'nullable|mimes:pdf|max:800',
+                'pengantar' => 'required',
+                'proposal' => 'required',
+                'cv' => 'nullable',
             ], [
-                'start_date.required' => 'Tanggal Mulai is required',
-                'start_date.date' => 'Invalid Tanggal Mulai format',
-                'start_date.after_or_equal' => 'Tanggal Mulai must be after or equal to today',
-                'end_date.required' => 'Tanggal Selesai is required',
-                'end_date.date' => 'Invalid Tanggal Selesai format',
-                'end_date.after' => 'Tanggal Selesai must be after the start date',
-                'databidang_id.required' => 'Field Bidang is required',
-                'databidang_id.exists' => 'Selected Bidang is invalid',
-                'skill.required' => 'Skill is required',
-                'skill.array' => 'Skill must be an array',
-                'bukti.required' => 'Bukti is required',
-                'bukti.mimes' => 'Bukti must be in PDF format',
-                'bukti.max' => 'Bukti may not be greater than 2 MB',
-                'pengantar.required' => 'Surat Pengantar is required',
-                'pengantar.mimes' => 'Surat Pengantar must be in PDF format',
-                'pengantar.max' => 'Surat Pengantar may not be greater than 2 MB',
-                'proposal.required' => 'Proposal is required',
-                'proposal.mimes' => 'Proposal must be in PDF format',
-                'proposal.max' => 'Proposal may not be greater than 2 MB',
-                'cv.mimes' => 'cv must be in PDF format',
-                'cv.max' => 'cv may not be greater than 800 KB',
+                'start_date.required' => 'Tanggal Mulai wajib diisi',
+                'start_date.date' => 'Format Tanggal Mulai tidak valid',
+                'start_date.after_or_equal' => 'Tanggal Mulai harus setelah atau sama dengan hari ini',
+                'end_date.required' => 'Tanggal Selesai wajib diisi',
+                'end_date.date' => 'Format Tanggal Selesai tidak valid',
+                'end_date.after' => 'Tanggal Selesai harus setelah Tanggal Mulai',
+                'databidang_id.required' => 'Bidang wajib diisi',
+                'databidang_id.exists' => 'Bidang yang dipilih tidak valid',
+                'skill.required' => 'Skill wajib diisi',
+                'skill.array' => 'Skill harus berupa array',
+                'bukti.required' => 'Bukti wajib diisi',
+                'pengantar.required' => 'Surat Pengantar wajib diisi',
+                'proposal.required' => 'Proposal wajib diisi',
             ]);
-
+            if ($request->has('cv')) {
+                if ($request->file('cv')->getSize() > 2097152) {
+                    Alert::error('Error', 'Ukuran file CV tidak boleh lebih dari 2MB')->showConfirmButton();
+                    return redirect()->back()->withInput();
+                }
+            }
+            if ($request->has('bukti')) {
+                if ($request->file('bukti')->getSize() > 2097152) {
+                    Alert::error('Error', 'Ukuran file Bukti tidak boleh lebih dari 2MB')->showConfirmButton();
+                    return redirect()->back()->withInput();
+                }
+            }
+            if ($request->has('pengantar')) {
+                if ($request->file('pengantar')->getSize() > 2097152) {
+                    Alert::error('Error', 'Ukuran file Pengantar tidak boleh lebih dari 2MB')->showConfirmButton();
+                    return redirect()->back()->withInput();
+                }
+            }
+            if ($request->has('proposal')) {
+                if ($request->file('proposal')->getSize() > 10485760) {
+                    Alert::error('Error', 'Ukuran file Proposal tidak boleh lebih dari 10MB')->showConfirmButton();
+                    return redirect()->back()->withInput();
+                }
+            }
             $user_id = $request->input('user_id');
 
             $skills = $request->input('skill');
@@ -245,7 +253,6 @@ class PengajuanController extends Controller
     {
         try {
             $request->validate([
-                'komentar' => 'required|string',
                 'kesediaan' => 'required|mimes:pdf|max:2048'
             ]);
 

@@ -35,11 +35,9 @@ class DashboardMahasiswaController extends Controller
         $magang = $pengajuan && $pengajuan->status == 'Magang' && $pengajuan->kesbangpol;
         $magangSelesai = $pengajuan && $pengajuan->status == 'Selesai';
         $resetPengajuan = $pengajuan && $pengajuan->status == 'Ditolak';
-
-        $pengajuan = Pengajuan::where('user_id', $user->id)->get();
+        // dd($pengajuanDiproses,$pengajuanDiteruskan,$pengajuanDiterima,$magang,$magangSelesai);
 
         $riwayat = Riwayat::where('user_id', $id)->orderBy('created_at', 'desc')->get();
-
         return view('mahasiswa.index', [
             'title' => 'Dashboard Mahasiswa',
             'user' => $user,
@@ -48,6 +46,7 @@ class DashboardMahasiswaController extends Controller
             'riwayat' => $riwayat,
             'login' => $login,
             'profil' => $profil,
+            'pengajuan' => $pengajuan,
             'pengajuanDiproses' => $pengajuanDiproses,
             'pengajuanDiteruskan' => $pengajuanDiteruskan,
             'pengajuanDiterima' => $pengajuanDiterima,
@@ -74,7 +73,6 @@ class DashboardMahasiswaController extends Controller
 
         $anggota = Anggota::where('user_id', $id)
             ->get();
-
         return view('mahasiswa.pengajuan', [
             'title' => 'Dashboard Mahasiswa',
             'user' => $user,

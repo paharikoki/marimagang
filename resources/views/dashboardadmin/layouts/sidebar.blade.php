@@ -98,17 +98,17 @@
                             @role('superadmin')
                             <li>
                                 <a href="/pengajuanadmin">
-                                    <span class="sub-item">Pengajuan Magang</span>
+                                    <span class="sub-item">Pengajuan Magang (Konfirmasi Admin 1)</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="/pengajuanditeruskan">
-                                    <span class="sub-item">Pengajuan Ke Bidang</span>
+                                    <span class="sub-item">Pengajuan Ke Bidang (Konfirmasi Admin Bidang)</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="/pengajuanaccadmin">
-                                    <span class="sub-item">Pengajuan Dikonfirmasi</span>
+                                    <span class="sub-item">Pengajuan Dikonfirmasi (Konfirmasi Admin 2)</span>
                                 </a>
                             </li>
                             @endrole

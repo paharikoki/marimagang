@@ -1,6 +1,9 @@
 @extends('mahasiswa.layouts.main')
 
 @section('content')
+
+
+
 <section class="heading-page header-text" id="top">
     <div class="container">
         <div class="row">
@@ -14,7 +17,28 @@
 
 <section class="steps-section" id="steps">
     <div class="container">
-        <div class="row">
+        @php
+        if (!$login) {
+            Alert::toast( 'Akun Belum Diverifikasi. Tunggu akun anda diverifikasi oleh admin', 'info');
+        }elseif (!$profil) {
+            Alert::toast('Silakan lengkapi profil anda', 'info');
+        }elseif (!$pengajuan) {
+            Alert::toast('Anda bisa mengajukan magang. Anda bisa klik menu pengajuan magang', 'info');
+        }elseif ($pengajuanDiproses && (!$pengajuanDiterima && !$magang && !$magangSelesai) ) {
+            Alert::toast('Pengajuan magang anda telah di proses. Silakan tunggu konfirmasi dari admin', 'info');
+        }elseif (!$pengajuanDiterima && (!$pengajuanDiproses && !$magang && !$magangSelesai) ) {
+            Alert::toast('Pengajuan magang anda telah di proses oleh admin. Silakan tunggu konfirmasi dari admin bidang', 'info');
+        }elseif ($pengajuan && $pengajuan->kesbangpol == null) {
+            Alert::toast('Selamat anda telah di proses di bidang ' . $pengajuan->databidang->nama .'. Silakan upload Surat Kesbangpol di menu pengajuan', 'info');
+        }elseif (!$magang && !$magangSelesai) {
+            Alert::toast('Anda sudah menyelesaikan syarat syarat magang. Silakan tunggu admin untuk konfirmasi magang anda', 'info');
+        }elseif ($magang && !$magangSelesai) {
+            Alert::toast('Anda dalam proses magang. Jangan lupa untuk mengisi logbook harian', 'info');
+        }elseif ($magangSelesai) {
+            Alert::success('Selamat, Anda telah menyelesaikan magang.',' Terima kasih telah berpartisipasi. Silakan isi Survey Kepuasan');
+        }
+        @endphp
+                <div class="row">
             <div class="col-lg-12">
                 <div class="steps-wrapper">
                     <h2>STATUS PENGAJUAN MAGANG</h2>
